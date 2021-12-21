@@ -1,0 +1,10 @@
+configVersion: 1
+project: devops-toolkit
+---
+image: frontend
+dockerfile: Dockerfile
+context: frontend
+---
+image: backend
+dockerfile: Dockerfile
+context: backend
