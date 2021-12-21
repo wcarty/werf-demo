@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: backend
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      imagePullSecrets:
+        - name: registrysecret
+      containers:
+      - image: {{ .Values.werf.image.backend }}
+        name: backend
+        ports:
+        - containerPort: 8080
+          name: backend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: backend
+  name: backend
+spec:
+  ports:
+  - name: "backend-service"
+    port: 8080
+  selector:
+    app: backend
